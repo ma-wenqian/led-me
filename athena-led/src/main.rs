@@ -351,7 +351,7 @@ impl SystemMonitor {
 
         // 🏅 2. 奖牌灯 (Bit 1, Val 2): 绑定路由连通性 (每2秒查一次)
         if now.duration_since(self.led_medal_timer).as_secs() >= 2 {
-            self.led_medal_state = self.check_homeproxy_running();
+            self.led_medal_state = SystemMonitor::check_homeproxy_running();
             self.led_medal_timer = now;
         }
         if self.led_medal_state { flag |= 2; }
