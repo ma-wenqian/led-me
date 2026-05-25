@@ -68,13 +68,6 @@ jobs:
           echo "ASSET_NAME=$FILENAME" >> $GITHUB_OUTPUT
           echo "✅ Packed binary: $FILENAME"
 
-      # 6. 上传 Rust 二进制 (会自动上传上面生成的长文件名文件)
-      - name: Upload Rust Binary to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: athena-led/*.tar.gz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # 7. 传递给 OpenWrt 任务
       - name: Pass Artifact to Next Job
