@@ -1,0 +1,16 @@
+# ==========================================
+# 强制 OpenWrt 相关文件使用 LF (Linux) 换行符
+# ==========================================
+
+# 1. 编译控制与多语言文件
+luci-app-athena-led/Makefile text eol=lf
+*.po text eol=lf
+
+# 2. Lua 源码与前端 HTML 视图
+*.lua text eol=lf
+*.htm text eol=lf
+
+# 3. 路由器底层目录 (极其重要！绝不能用 CRLF)
+luci-app-athena-led/root/etc/config/* text eol=lf
+luci-app-athena-led/root/etc/init.d/* text eol=lf
+luci-app-athena-led/root/etc/rc.button/* text eol=lf

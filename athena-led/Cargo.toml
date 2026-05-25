@@ -1,0 +1,34 @@
+[package]
+name = "athena-led"
+version = "2.2.4"
+edition = "2021"
+license = "Apache-2.0"
+
+[profile.release]
+strip = true      # 自动剥离符号表和调试信息（立竿见影，直接砍掉一半体积）
+opt-level = "z"   # 优化目标改为“最小体积”（默认是 "3"，追求最快速度）
+lto = true        # 开启跨包链接时优化（Link Time Optimization），能进一步减小体积
+codegen-units = 1 # 降低并行编译单元以增加优化时间，换取更小的体积
+panic = "abort"   # 遇到严重错误直接退出，不保留庞大的堆栈展开
+
+[dependencies]
+# ==========================================
+# 🟢 全平台通用依赖 (Windows/Linux 都能跑)
+# ==========================================
+tokio = { version = "1.32.0", features = ["rt-multi-thread", "macros", "time", "signal"] }
+reqwest = { version = "0.11.20", features = ["json", "rustls-tls"], default-features = false }
+chrono = { version = "0.4.31", default-features = false, features = ["serde", "clock", "std"] }
+anyhow = "1.0.75"
+clap = { version = "4.4.4", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }  
+serde_json = "1.0"                                  
+once_cell = "1.18.0"
+regex = "1"
+
+# ==========================================
+# 🐧 Linux 专属依赖 (编译给路由器时才用到)
+# ==========================================
+[target.'cfg(unix)'.dependencies]
+sysfs_gpio = "0.6.1"
+
+

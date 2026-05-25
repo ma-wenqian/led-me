@@ -1,0 +1,74 @@
+# =========================
+# 1. Rust 编译产物
+# =========================
+athena-led/target/
+**/*.rs.bk
+
+# =========================
+# 2. OpenWrt SDK / 本地编译遗留
+# =========================
+sdk/
+openwrt-sdk-*/
+dl/
+bin/
+tmp/
+build_dir/
+staging_dir/
+feeds/
+.config
+.config.old
+
+# =========================
+# 3. 打包产物 (由 GitHub Action 生成，不要传到源码库)
+# =========================
+dist/
+*.tar.gz
+*.ipk
+*.apk
+
+# =========================
+# 4. IDE 配置文件与系统缓存
+# =========================
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+
+!luci-app-athena-led/root/usr/bin/*
+
+
+
+# ==================================
+# 🛠️ Tools / PC Scripts (Python)
+# ==================================
+
+# 忽略所有的测试视频文件 (防止大文件污染仓库)
+tools/*.mp4
+tools/*.mkv
+tools/*.avi
+tools/*.mov
+tools/*.flv
+
+# 忽略生成的二进制裸流文件 (生成的 payload 不需要提交)
+tools/*.bin
+
+# 忽略 Python 运行时的缓存文件
+tools/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 忽略 Python 虚拟环境 (如果高级玩家习惯建 venv 的话)
+tools/venv/
+tools/env/
+tools/.env/
+
+# 忽略所有测试用的原视频和转换后的二进制流
+*.mp4
+*.bin
+
+# 🌟 但是！强行放行预制在 LuCI 安装包里的精选动画！(白名单)
+!luci-app-athena-led/root/etc/athena_led/anim/*.bin
+
